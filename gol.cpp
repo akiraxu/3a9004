@@ -184,10 +184,7 @@ int main(int argc,char* argv[]){
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
-	int MPI_Alltoallv(const void *sendbuf, const int *sendcounts,
-                  const int *sdispls, MPI_Datatype sendtype, void *recvbuf,
-                  const int *recvcounts, const int *rdispls, MPI_Datatype recvtype,
-                  MPI_Comm comm)
+	//int MPI_Alltoallv(const void *sendbuf, const int *sendcounts, const int *sdispls, MPI_Datatype sendtype, void *recvbuf, const int *recvcounts, const int *rdispls, MPI_Datatype recvtype, MPI_Comm comm)
 
 	cout << "ID:" << id << " After Gather" << endl;
 
