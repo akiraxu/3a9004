@@ -58,18 +58,13 @@ void addPadding(int ** arr, int x, int y, int pad){
 	int * a = new int[nx*ny];
 	int ni = pad;
 	int nj = pad;
-	for(int i = 0; i < nx*ny; i++){
-		a[i] = 0;
-	}
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
-			//cout << i << " " << j << " -> " << ni << " " << nj << endl;
 			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
 		}
 		ni++;
 		nj = pad;
-		cout << endl;
 	}
 	free (*arr);
 	(*arr) = a;
@@ -79,19 +74,19 @@ void removePadding(int ** arr, int x, int y, int pad){
 	int nx = x-2*pad;
 	int ny = y-2*pad;
 	int * a = new int[nx*ny];
-	int ni = 0;
-	int nj = 0;
-	for(int i = 0; i < nx*ny; i++){
-		a[i] = 0;
-	}
-	for(int i = pad; i < y-pad; i++){
-		for(int j = pad; j < x-pad; j++){
-			a[(ni-pad)*nx+nj] = (*arr)[x*i+j];
+	int ni = pad;
+	int nj = pad;
+	for(int i = 0; i < ny; i++){
+		for(int j = 0; j < nx; j++){
+			a[i*nx+j] = (*arr)[x*ni+nj];
 			nj++;
 		}
 		ni++;
-		nj = 0;
-		cout << endl;
+		nj = pad;
+	}
+	int k = 0;
+	for(int i = 0; i < nx*ny; i++){
+		k++;
 	}
 	free (*arr);
 	(*arr) = a;
