@@ -1,3 +1,5 @@
+# include <cstdlib>
+# include "mpi.h"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -50,49 +52,68 @@ int calcNextRound(int * arr, int pos, int size_x){
 }
 
 int main(int argc,char* argv[]){
+	int id;
+	int p;
+	double wtime;
+
 	if(argc != 4){ 
 		exit(0);
 	}
-	string fn(argv[1]);
-	int n = stoi(argv[2]);
-	int k = stoi(argv[3]);
 
-	cout << fn << n << k << endl;
-	
-	int *arr = new int[n*n];
-	int *arr2 = new int[n*n];
-	
-	ifstream in(fn);
-	ofstream out("" + fn + ".out");
-	
-	string line;
-	
-	int i = 0;
-	while(getline(in,line)){
-		if(i>=n){
-			break;
+	MPI::Init(argc, argv); //  Initialize MPI.
+	p = MPI::COMM_WORLD.Get_size(); //  Get the number of processes.
+	id = MPI::COMM_WORLD.Get_rank(); //  Get the individual process ID.
+
+	int n, k;
+
+	if(id = 0){
+		string fn(argv[1]);
+		int n = stoi(argv[2]);
+		int k = stoi(argv[3]);
+
+		cout << fn << n << k << endl;
+		
+		int *arr = new int[n*n];
+		int *arr2 = new int[n*n];
+		
+		ifstream in(fn);
+		ofstream out("" + fn + ".out");
+		
+		string line;
+		
+		int i = 0;
+		while(getline(in,line)){
+			if(i>=n){
+				break;
+			}
+			for(int j = 0; j < n; j++){
+				arr[n*i+j] = stoi(line.substr(j,1));
+			}
+			i++;
 		}
-		for(int j = 0; j < n; j++){
-			arr[n*i+j] = stoi(line.substr(j,1));
-		}
-		i++;
-	}
-	for(int i = 0; i < n*n; i++){
-		arr2[i] = arr[i];
-	}
-	for(int t = 0; t < k; t++){
-		free(arr);
-		arr = arr2;
-		arr2 = new int[n*n];
+
 		for(int i = 0; i < n*n; i++){
-			arr2[i] = calcNextRound(arr, i, 100);
+			arr2[i] = arr[i];
 		}
-	}
+		for(int t = 0; t < k; t++){
+			free(arr);
+			arr = arr2;
+			arr2 = new int[n*n];
+			for(int i = 0; i < n*n; i++){
+				arr2[i] = calcNextRound(arr, i, 100);
+			}
+		}
 
-	for(int i = 0; i < n; i++){
-		for(int j = 0; j < n; j++){
-			cout << arr2[n*i+j];
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				cout << arr2[n*i+j];
+			}
+			cout << endl;
 		}
-		cout << endl;
 	}
+	MPI_Bcast(&n,1,MPI_INT,0,MPI_COMM_WORLD);
+	MPI_Bcast(&k,1,MPI_INT,0,MPI_COMM_WORLD);
+
+	MPI::Finalize();
+	return 0;
 }
