@@ -92,6 +92,12 @@ void removePadding(int ** arr, int x, int y, int pad){
 	(*arr) = a;
 }
 
+void copyArr(int * orig, int * targ, int len){
+	for(int i = 0; i < len; i++){
+		targ[i] = orig[i];
+	}
+}
+
 int main(int argc,char* argv[]){
 	int id;
 	int p;
@@ -166,55 +172,42 @@ int main(int argc,char* argv[]){
 	MPI_Bcast(&n,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(&k,1,MPI_INT,0,MPI_COMM_WORLD);
 
+	bool inityet = false;
+
 	int s = ceil(float(n)/float(p));
 
 	int * rec = new int[n*s];
 	int * res = new int[n*s];
 
-	//cout << "My id is " << id << " n=" << n << " k=" << k << endl;
-
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
-
-	//cout << "ID:" << id << " After Scatter" << endl;
 
 	for(int i = 0; i < n*s; i++){
 		res[i] = rec[i];
 	}
-	if(id==0){
-		cout << "before add" << endl;
-		for(int i = 0; i < s; i++){
-			for(int j = 0; j < n; j++){
-				cout << res[n*i+j];
-			}
-			cout << endl;
-		}
-	}
 	addPadding(&res, n, s, 10);
-	if(id==0){
-		cout << "after add" << endl;
-		for(int i = 0; i < s + 20; i++){
-			for(int j = 0; j < n + 20; j++){
-				cout << res[n*i+j];
-			}
-			cout << endl;
+
+	int * uppad = new int[n];
+	int * downpad = new int[n];
+
+	if(inityet){
+		int * sendup = new int [n*p];
+		int * senddown = new int [n*p];
+		for(int i = 1; i < p; i++){
+			copyArr(infile + n*(i*s-1), sendup + n*(i-1), n);
 		}
+
+
+		inityet = false;
 	}
+
+
+
+
 	removePadding(&res, n+20, s+20, 10);
-	if(id==0){
-		cout << "after remove" << endl;
-		for(int i = 0; i < s; i++){
-			for(int j = 0; j < n; j++){
-				cout << res[n*i+j];
-			}
-			cout << endl;
-		}
-	}
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
 	//int MPI_Alltoallv(const void *sendbuf, const int *sendcounts, const int *sdispls, MPI_Datatype sendtype, void *recvbuf, const int *recvcounts, const int *rdispls, MPI_Datatype recvtype, MPI_Comm comm)
-
-	//cout << "ID:" << id << " After Gather" << endl;
 
 	if(id==0){
 		cout << "final" << endl;
