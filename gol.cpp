@@ -58,6 +58,9 @@ void addPadding(int ** arr, int x, int y, int pad){
 	int * a = new int[nx*ny];
 	int ni = pad;
 	int nj = pad;
+	for(int i = 0; i < nx*ny; i++){
+		a[i] = 0;
+	}
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
 			//cout << i << " " << j << " -> " << ni << " " << nj << endl;
@@ -78,6 +81,9 @@ void removePadding(int ** arr, int x, int y, int pad){
 	int * a = new int[nx*ny];
 	int ni = 0;
 	int nj = 0;
+	for(int i = 0; i < nx*ny; i++){
+		a[i] = 0;
+	}
 	for(int i = pad; i < y-pad; i++){
 		for(int j = pad; j < x-pad; j++){
 			a[(ni-pad)*nx+nj] = (*arr)[x*i+j];
