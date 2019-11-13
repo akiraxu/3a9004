@@ -131,8 +131,6 @@ int main(int argc,char* argv[]){
 	int * rec = new int[n*s];
 	int * res = new int[n*s];
 
-	if(id)
-
 	cout << "My id is " << id << " n=" << n << " k=" << k << endl;
 
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
