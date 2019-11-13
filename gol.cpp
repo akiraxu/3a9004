@@ -60,7 +60,7 @@ void addPadding(int ** arr, int x, int y, int pad){
 	int nj = pad;
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
-			cout << i << " " << j << " -> " << ni << " " << nj << endl;
+			//cout << i << " " << j << " -> " << ni << " " << nj << endl;
 			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
 		}
@@ -177,13 +177,13 @@ int main(int argc,char* argv[]){
 	//cout << "ID:" << id << " After Scatter" << endl;
 
 	for(int i = 0; i < n*s; i++){
-		res[i] = rec[i];
+		res[i] = i;
 	}
 	if(id==0){
 		cout << "before add" << endl;
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << res[n*i+j];
+				cout << res[n*i+j] << " ";
 			}
 			cout << endl;
 		}
@@ -193,7 +193,7 @@ int main(int argc,char* argv[]){
 		cout << "after add" << endl;
 		for(int i = 0; i < s + 20; i++){
 			for(int j = 0; j < n + 20; j++){
-				cout << res[n*i+j];
+				cout << res[n*i+j] << " ";
 			}
 			cout << endl;
 		}
@@ -203,7 +203,7 @@ int main(int argc,char* argv[]){
 		cout << "after remove" << endl;
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << res[n*i+j];
+				cout << res[n*i+j] << " ";
 			}
 			cout << endl;
 		}
