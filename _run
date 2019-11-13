@@ -1,4 +1,4 @@
 #!/bin/sh
 
-mpiexec -np 4 --hostfile _hostfile main
+mpiexec -np 4 --hostfile _hostfile main test3.txt 100 10
 
