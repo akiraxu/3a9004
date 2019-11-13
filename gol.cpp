@@ -137,13 +137,18 @@ int main(int argc,char* argv[]){
 
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
+	cout << "ID:" << id << " After Scatter" << endl;
+
 	for(int i = 0; i < n*s; i++){
 		res[i] = rec[i];
 	}
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
+	cout << "ID:" << id << " After Gather" << endl;
+
 	if(id==0){
+		cout << "final" << endl;
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
 				cout << outfile[n*i+j];
