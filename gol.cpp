@@ -70,7 +70,6 @@ int main(int argc,char* argv[]){
 	int n, k;
 
 	if(id == 0){
-		cout << "My id is " << id << endl;
 		string fn(argv[1]);
 		int n = stoi(argv[2]);
 		int k = stoi(argv[3]);
@@ -107,16 +106,19 @@ int main(int argc,char* argv[]){
 				arr2[i] = calcNextRound(arr, i, 100);
 			}
 		}
-
+/*
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < n; j++){
 				cout << arr2[n*i+j];
 			}
 			cout << endl;
 		}
+*/
 	}
 	MPI_Bcast(&n,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(&k,1,MPI_INT,0,MPI_COMM_WORLD);
+
+	cout << "My id is " << id << " n=" << n << " k=" << k << endl;
 
 	MPI::Finalize();
 	return 0;
