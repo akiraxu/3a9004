@@ -5,6 +5,7 @@
 #include <sstream>
 #include <fstream>
 #include <streambuf>
+#include <math.h>
 
 using namespace std;
 
@@ -69,6 +70,9 @@ int main(int argc,char* argv[]){
 
 	int n, k;
 
+	int *infile;
+	int *outfile;
+
 	if(id == 0){
 		string fn(argv[1]);
 		n = stoi(argv[2]);
@@ -78,6 +82,9 @@ int main(int argc,char* argv[]){
 		
 		int *arr = new int[n*n];
 		int *arr2 = new int[n*n];
+		int haserh = ceil(float(n)/float(p));
+		infile = new int[n*haserh];
+		outfile = new int[n*haserh];
 		
 		ifstream in(fn);
 		ofstream out("" + fn + ".out");
@@ -97,6 +104,7 @@ int main(int argc,char* argv[]){
 
 		for(int i = 0; i < n*n; i++){
 			arr2[i] = arr[i];
+			infile[i] = arr[i];
 		}
 		for(int t = 0; t < k; t++){
 			free(arr);
@@ -118,7 +126,31 @@ int main(int argc,char* argv[]){
 	MPI_Bcast(&n,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(&k,1,MPI_INT,0,MPI_COMM_WORLD);
 
+	int s = ceil(float(n)/float(p));
+
+	int * rec = new int[n*s];
+	int * res = new int[n*s];
+
+	if(id)
+
 	cout << "My id is " << id << " n=" << n << " k=" << k << endl;
+
+	int MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
+
+	for(int i = 0; i < n*s; i++){
+		res[i] = rec[i];
+	}
+
+	int MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
+
+	if(id==0){
+		for(int i = 0; i < s; i++){
+			for(int j = 0; j < n; j++){
+				cout << arr2[n*i+j];
+			}
+			cout << endl;
+		}
+	}
 
 	MPI::Finalize();
 	return 0;
