@@ -180,9 +180,9 @@ int main(int argc,char* argv[]){
 	}
 	if(id==0){
 		cout << "before add" << endl;
-		for(int i = 0; i < s * p; i++){
+		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << outfile[n*i+j];
+				cout << res[n*i+j];
 			}
 			cout << endl;
 		}
@@ -190,9 +190,9 @@ int main(int argc,char* argv[]){
 	addPadding(&res, n, s, 10);
 	if(id==0){
 		cout << "after add" << endl;
-		for(int i = 0; i < s * p; i++){
+		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << outfile[n*i+j];
+				cout << res[n*i+j];
 			}
 			cout << endl;
 		}
@@ -200,9 +200,9 @@ int main(int argc,char* argv[]){
 	removePadding(&res, n+20, s+20, 10);
 	if(id==0){
 		cout << "after remove" << endl;
-		for(int i = 0; i < s * p; i++){
+		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << outfile[n*i+j];
+				cout << res[n*i+j];
 			}
 			cout << endl;
 		}
