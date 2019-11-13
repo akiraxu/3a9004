@@ -180,7 +180,7 @@ int main(int argc,char* argv[]){
 	}
 
 	addPadding(&res, n, s, 10);
-	removePadding(&res, n, s, 10);
+	removePadding(&res, n+20, s+20, 10);
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
