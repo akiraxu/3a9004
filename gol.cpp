@@ -135,18 +135,18 @@ int main(int argc,char* argv[]){
 
 	cout << "My id is " << id << " n=" << n << " k=" << k << endl;
 
-	int MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
+	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
 	for(int i = 0; i < n*s; i++){
 		res[i] = rec[i];
 	}
 
-	int MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
+	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
 	if(id==0){
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << arr2[n*i+j];
+				cout << outfile[n*i+j];
 			}
 			cout << endl;
 		}
