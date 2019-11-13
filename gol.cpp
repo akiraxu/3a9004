@@ -52,7 +52,7 @@ int calcNextRound(int * arr, int pos, int size_x){
 	return arr[pos]==0 ? near==3 : near==2 || near==3;
 }
 
-int addPadding(int ** arr, int x, int y, int pad){
+void addPadding(int ** arr, int x, int y, int pad){
 	int nx = x+2*pad;
 	int ny = y+2*pad;
 	int * a = new int[nx*ny];
@@ -71,7 +71,7 @@ int addPadding(int ** arr, int x, int y, int pad){
 	(*arr) = a;
 }
 
-int removePadding(int ** arr, int x, int y, int pad){
+void removePadding(int ** arr, int x, int y, int pad){
 	int nx = x-2*pad;
 	int ny = y-2*pad;
 	int * a = new int[nx*ny];
