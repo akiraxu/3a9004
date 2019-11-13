@@ -52,6 +52,40 @@ int calcNextRound(int * arr, int pos, int size_x){
 	return arr[pos]==0 ? near==3 : near==2 || near==3;
 }
 
+int addPadding(int ** arr, int x, int y, int pad){
+	int nx = x+2*pad;
+	int ny = y+2*pad
+	int * a = new int[nx*ny];
+	int ni = 1;
+	int nj = 1;
+	for(int i = 0; i < y; i++){
+		for(int j = 0; j < x; j++){
+			a[ni*nx+nj] = arr[x*i+j];
+			nj++;
+		}
+		ni++;
+		nj = 1;
+		cout << endl;
+	}
+}
+
+int removePadding(int ** arr, int x, int y, int pad){
+	int nx = x-2*pad;
+	int ny = y-2*pad
+	int * a = new int[nx*ny];
+	int ni = 0;
+	int nj = 0;
+	for(int i = pad; i < y-pad; i++){
+		for(int j = pad; j < x-pad; j++){
+			a[(ni-pad)*nx+nj] = arr[x*i+j];
+			nj++;
+		}
+		ni++;
+		nj = 0;
+		cout << endl;
+	}
+}
+
 int main(int argc,char* argv[]){
 	int id;
 	int p;
@@ -83,8 +117,8 @@ int main(int argc,char* argv[]){
 		int *arr = new int[n*n];
 		int *arr2 = new int[n*n];
 		int haserh = ceil(float(n)/float(p));
-		infile = new int[n*haserh];
-		outfile = new int[n*haserh];
+		infile = new int[n*haserh*p];
+		outfile = new int[n*haserh*p];
 		
 		ifstream in(fn);
 		ofstream out("" + fn + ".out");
@@ -141,13 +175,21 @@ int main(int argc,char* argv[]){
 		res[i] = rec[i];
 	}
 
+	addPadding(&res, n, s, 10);
+	removePadding(&res, n, s, 10);
+
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
+
+	int MPI_Alltoallv(const void *sendbuf, const int *sendcounts,
+                  const int *sdispls, MPI_Datatype sendtype, void *recvbuf,
+                  const int *recvcounts, const int *rdispls, MPI_Datatype recvtype,
+                  MPI_Comm comm)
 
 	cout << "ID:" << id << " After Gather" << endl;
 
 	if(id==0){
 		cout << "final" << endl;
-		for(int i = 0; i < s; i++){
+		for(int i = 0; i < s * p; i++){
 			for(int j = 0; j < n; j++){
 				cout << outfile[n*i+j];
 			}
