@@ -178,9 +178,35 @@ int main(int argc,char* argv[]){
 	for(int i = 0; i < n*s; i++){
 		res[i] = rec[i];
 	}
-
+	if(id==0){
+		cout << "before add" << endl;
+		for(int i = 0; i < s * p; i++){
+			for(int j = 0; j < n; j++){
+				cout << outfile[n*i+j];
+			}
+			cout << endl;
+		}
+	}
 	addPadding(&res, n, s, 10);
+	if(id==0){
+		cout << "after add" << endl;
+		for(int i = 0; i < s * p; i++){
+			for(int j = 0; j < n; j++){
+				cout << outfile[n*i+j];
+			}
+			cout << endl;
+		}
+	}
 	removePadding(&res, n+20, s+20, 10);
+	if(id==0){
+		cout << "after remove" << endl;
+		for(int i = 0; i < s * p; i++){
+			for(int j = 0; j < n; j++){
+				cout << outfile[n*i+j];
+			}
+			cout << endl;
+		}
+	}
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
