@@ -71,8 +71,8 @@ int main(int argc,char* argv[]){
 
 	if(id == 0){
 		string fn(argv[1]);
-		int n = stoi(argv[2]);
-		int k = stoi(argv[3]);
+		n = stoi(argv[2]);
+		k = stoi(argv[3]);
 
 		cout << fn << n << k << endl;
 		
