@@ -1,4 +1,4 @@
 #!/bin/sh
 
-mpiCC main.cpp -o main
+mpiCC gol.cpp -o main
 
