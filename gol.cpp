@@ -68,6 +68,7 @@ int main(int argc,char* argv[]){
 	int n, k;
 
 	if(id = 0){
+		cout << "hello\n";
 		string fn(argv[1]);
 		int n = stoi(argv[2]);
 		int k = stoi(argv[3]);
@@ -111,6 +112,8 @@ int main(int argc,char* argv[]){
 			}
 			cout << endl;
 		}
+	}else{
+		cout << "Hello\n";
 	}
 	MPI_Bcast(&n,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(&k,1,MPI_INT,0,MPI_COMM_WORLD);
