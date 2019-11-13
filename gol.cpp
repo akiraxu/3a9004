@@ -65,10 +65,12 @@ int main(int argc,char* argv[]){
 	p = MPI::COMM_WORLD.Get_size(); //  Get the number of processes.
 	id = MPI::COMM_WORLD.Get_rank(); //  Get the individual process ID.
 
+	
+
 	int n, k;
 
-	if(id = 0){
-		cout << "hello\n";
+	if(id == 0){
+		cout << "My id is " << id << endl;
 		string fn(argv[1]);
 		int n = stoi(argv[2]);
 		int k = stoi(argv[3]);
@@ -112,8 +114,6 @@ int main(int argc,char* argv[]){
 			}
 			cout << endl;
 		}
-	}else{
-		cout << id << "Hello\n";
 	}
 	MPI_Bcast(&n,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(&k,1,MPI_INT,0,MPI_COMM_WORLD);
