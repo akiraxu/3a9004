@@ -60,13 +60,15 @@ int addPadding(int ** arr, int x, int y, int pad){
 	int nj = 1;
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
-			a[ni*nx+nj] = arr[x*i+j];
+			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
 		}
 		ni++;
 		nj = 1;
 		cout << endl;
 	}
+	free (*arr);
+	(*arr) = a;
 }
 
 int removePadding(int ** arr, int x, int y, int pad){
@@ -77,13 +79,15 @@ int removePadding(int ** arr, int x, int y, int pad){
 	int nj = 0;
 	for(int i = pad; i < y-pad; i++){
 		for(int j = pad; j < x-pad; j++){
-			a[(ni-pad)*nx+nj] = arr[x*i+j];
+			a[(ni-pad)*nx+nj] = (*arr)[x*i+j];
 			nj++;
 		}
 		ni++;
 		nj = 0;
 		cout << endl;
 	}
+	free (*arr);
+	(*arr) = a;
 }
 
 int main(int argc,char* argv[]){
