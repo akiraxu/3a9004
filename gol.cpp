@@ -60,6 +60,7 @@ void addPadding(int ** arr, int x, int y, int pad){
 	int nj = pad;
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
+			cout << i << " " << j << " -> " << ni << " " << nj << endl;
 			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
 		}
