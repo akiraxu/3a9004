@@ -56,15 +56,15 @@ void addPadding(int ** arr, int x, int y, int pad){
 	int nx = x+2*pad;
 	int ny = y+2*pad;
 	int * a = new int[nx*ny];
-	int ni = 1;
-	int nj = 1;
+	int ni = pad;
+	int nj = pad;
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
 			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
 		}
 		ni++;
-		nj = 1;
+		nj = pad;
 		cout << endl;
 	}
 	free (*arr);
