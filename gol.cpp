@@ -59,6 +59,7 @@ int main(int argc,char* argv[]){
 	if(argc != 4){ 
 		exit(0);
 	}
+	cout << argc << endl;
 
 	MPI::Init(argc, argv); //  Initialize MPI.
 	p = MPI::COMM_WORLD.Get_size(); //  Get the number of processes.
