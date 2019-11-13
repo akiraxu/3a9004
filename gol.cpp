@@ -169,11 +169,11 @@ int main(int argc,char* argv[]){
 	int * rec = new int[n*s];
 	int * res = new int[n*s];
 
-	cout << "My id is " << id << " n=" << n << " k=" << k << endl;
+	//cout << "My id is " << id << " n=" << n << " k=" << k << endl;
 
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
-	cout << "ID:" << id << " After Scatter" << endl;
+	//cout << "ID:" << id << " After Scatter" << endl;
 
 	for(int i = 0; i < n*s; i++){
 		res[i] = rec[i];
@@ -190,8 +190,8 @@ int main(int argc,char* argv[]){
 	addPadding(&res, n, s, 10);
 	if(id==0){
 		cout << "after add" << endl;
-		for(int i = 0; i < s; i++){
-			for(int j = 0; j < n; j++){
+		for(int i = 0; i < s + 20; i++){
+			for(int j = 0; j < n + 20; j++){
 				cout << res[n*i+j];
 			}
 			cout << endl;
@@ -212,7 +212,7 @@ int main(int argc,char* argv[]){
 
 	//int MPI_Alltoallv(const void *sendbuf, const int *sendcounts, const int *sdispls, MPI_Datatype sendtype, void *recvbuf, const int *recvcounts, const int *rdispls, MPI_Datatype recvtype, MPI_Comm comm)
 
-	cout << "ID:" << id << " After Gather" << endl;
+	//cout << "ID:" << id << " After Gather" << endl;
 
 	if(id==0){
 		cout << "final" << endl;
