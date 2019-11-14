@@ -61,24 +61,19 @@ int calcNextRound(int * arr, int pos, int size_x, int size_y){
 }
 
 void addPadding(int ** arr, int x, int y, int pad){
-	cout << "add padding" << endl;
 	int nx = x+2*pad;
 	int ny = y+2*pad;
 	int * a = new int[nx*ny];
 	fillZero(a, nx*ny);
 	int ni = pad;
 	int nj = pad;
-	int k = 0;
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
 			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
-			k++;
 		}
-		ni++;
 		nj = pad;
 	}
-	cout << "|" << k << "|";
 	delete [] (*arr);
 	(*arr) = a;
 }
@@ -254,30 +249,8 @@ int main(int argc,char* argv[]){
 
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
-	int testid = 2;
-
-	if(testid == id){
-		for(int i = 0; i < s; i++){
-			for(int j = 0; j < n; j++){
-				cout << rec[n*i+j];
-			}
-			cout << endl;
-		}
-		cout << endl;
-	}
-
 	addPadding(&rec, n, s, padding);
-	for(int i = 0; i < n*s; i++){res[i] = rec[i];}
-
-	if(testid == id){
-		for(int i = 0; i < s+2*padding; i++){
-			for(int j = 0; j < n+2*padding; j++){
-				cout << res[(n+2*padding)*i+j];
-			}
-			cout << endl;
-		}
-		cout << endl;
-	}
+	for(int i = 0; i < (n+2*padding)*(s+2*padding); i++){res[i] = rec[i];}
 
 	int * uppad = new int[n];
 	int * downpad = new int[n];
@@ -319,16 +292,6 @@ int main(int argc,char* argv[]){
 
 
 	removePadding(&res, n+2*padding, s+2*padding, padding);
-
-	if(testid == id){
-		for(int i = 0; i < s; i++){
-			for(int j = 0; j < n; j++){
-				cout << res[n*i+j];
-			}
-			cout << endl;
-		}
-		cout << endl;
-	}
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
