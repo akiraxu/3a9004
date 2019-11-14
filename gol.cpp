@@ -121,24 +121,24 @@ void setBoundary(int * upper, int * lower, int * arr, int x, int y, int pad){
 }
 
 void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
-	int * sendbuf = new int[2*x];
-	int * sendcounts = new int[procs];
-	int * sdispls = new int[procs];
-	int * recvbuf = new int[2*x];
-	int * recvcounts = new int[procs];
-	int * rdispls = new int[procs];
+	int sendbuf[2*x];
+	int sendcounts[procs];
+	int sdispls[procs];
+	int recvbuf[2*x];
+	int recvcounts[procs];
+	int rdispls[procs];
 
 	int loc = 0;
 
 	//for(int i = 0; i < procs; i++){cout << sendcounts[i] << "| ";}
 	for(int i = 0; i < 2*x; i++){
-		sendbuf[i] = recvbuf[i] = 0;
+		//sendbuf[i] = recvbuf[i] = 0;
 	}
 	bool up = false;
 	bool down = false;
 
 	for(int i = 0; i < procs; i++){
-		sendcounts[i] = recvcounts[i] = sdispls[i] = rdispls[i] = 0;
+		//sendcounts[i] = recvcounts[i] = sdispls[i] = rdispls[i] = 0;
 		if(i == my-1){
 			sendcounts[i] = x;
 			recvcounts[i] = x;
@@ -179,7 +179,6 @@ int main(int argc,char* argv[]){
 	if(argc != 4){ 
 		exit(0);
 	}
-	cout << argc << endl;
 
 	MPI::Init(argc, argv); //  Initialize MPI.
 	p = MPI::COMM_WORLD.Get_size(); //  Get the number of processes.
