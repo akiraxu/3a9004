@@ -101,11 +101,9 @@ void removePadding(int ** arr, int x, int y, int pad){
 }
 
 void clearPadding(int ** arr, int x, int y, int pad){
-	int nx = x-2*pad;
-	int ny = y-2*pad;
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
-			if(i < pad || i >= x+pad || j < pad || j >= x+pad);
+			if(i < pad || i >= x-pad || j < pad || j >= x-pad);
 			(*arr)[x*i+j] = 0;
 		}
 	}
@@ -336,6 +334,8 @@ int main(int argc,char* argv[]){
 			}
 
 			makeAllToAll(uppad, downpad, n, s, p, id);
+
+			removePadding(&rec, n+2*padding, s+2*padding, padding);
 
 			if(id==testp){
 				cout << "get upper:\n";
