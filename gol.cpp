@@ -287,9 +287,9 @@ int main(int argc,char* argv[]){
 			k--;
 
 			if(id==2){
-				for(int i = 0; i < n; i++){
-					for(int j = 0; j < n; j++){
-						cout << rec[n*i+j];
+				for(int i = 0; i < s+2*padding; i++){
+					for(int j = 0; j < n+2*padding; j++){
+						cout << rec[(n+2*padding)*i+j];
 					}
 					cout << endl;
 				}
