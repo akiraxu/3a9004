@@ -72,6 +72,7 @@ void addPadding(int ** arr, int x, int y, int pad){
 			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
 		}
+		ni++;
 		nj = pad;
 	}
 	delete [] (*arr);
@@ -254,7 +255,7 @@ int main(int argc,char* argv[]){
 
 	int * uppad = new int[n];
 	int * downpad = new int[n];
-/*
+
 	while(k >= 0){
 		if(!inityet){
 			int * sendup = new int [n*p];
@@ -288,7 +289,7 @@ int main(int argc,char* argv[]){
 		}
 	}
 
-*/
+
 
 
 	removePadding(&res, n+2*padding, s+2*padding, padding);
