@@ -149,8 +149,8 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 void runRound(int ** curr, int ** next, int x, int y){
 	//free(*next);
 	//(*next) = new int[x*y];
-	for(int i = 0; i < n*n; i++){
-		arr[i] = calcNextRound(*curr, i, x, y);
+	for(int i = 0; i < x*y; i++){
+		(*next)[i] = calcNextRound(*curr, i, x, y);
 	}
 }
 
@@ -213,7 +213,7 @@ int main(int argc,char* argv[]){
 			arr = arr2;
 			arr2 = new int[n*n];
 			for(int i = 0; i < n*n; i++){
-				arr2[i] = calcNextRound(arr, i, 100);
+				arr2[i] = calcNextRound(arr, i, 100, 100);
 			}
 		}
 /*
