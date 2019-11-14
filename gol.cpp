@@ -260,7 +260,7 @@ int main(int argc,char* argv[]){
 	int s = ceil(float(n)/float(p));
 
 	int * inf2 = new int[n*s*p];
-	if(id = 0){
+	if(id == 0){
 		for(int i = 0; i < n*s*p; n++){inf2[i] = 0;}
 		copyArr(infile, inf2, n*n);
 	}
