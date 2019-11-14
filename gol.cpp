@@ -217,7 +217,6 @@ int main(int argc,char* argv[]){
 		outfile = new int[n*haserh*p];
 		
 		ifstream in(fn);
-		ofstream out("" + fn + ".out");
 		
 		string line;
 		
@@ -236,7 +235,7 @@ int main(int argc,char* argv[]){
 			arr2[i] = arr[i];
 			infile[i] = arr[i];
 		}
-
+/*
 		for(int i = 0; i < haserh*p; i++){
 			for(int j = 0; j < n; j++){
 				cout << infile[n*i+j];
@@ -244,7 +243,7 @@ int main(int argc,char* argv[]){
 			cout << endl;
 		}
 		cout << endl;
-
+*/
 		for(int t = 0; t < k; t++){
 			delete [] arr;
 			arr = arr2;
@@ -403,13 +402,15 @@ int main(int argc,char* argv[]){
 
 	if(id==0){
 		wtime = MPI::Wtime() - wtime;
-		cout << "result:" << endl;
+		ofstream out("" + fn + ".out");
+		//cout << "result:" << endl;
 		for(int i = 0; i < s * p; i++){
 			for(int j = 0; j < n; j++){
-				cout << outfile[n*i+j];
+				out << outfile[n*i+j];
 			}
-			cout << endl;
+			out << endl;
 		}
+		out.close();
 		cout << "  Elapsed wall clock time = " << wtime << " seconds.\n";
 	}
 
