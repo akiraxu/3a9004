@@ -139,6 +139,12 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 		}
 		
 	}
+
+	for(int i = 0; i < procs; i++){
+		cout << sendcounts[i];
+	}
+	cout << endl;
+
 	copyArr(upper, sendbuf, x);
 	copyArr(lower, sendbuf+x, x);
 	MPI_Alltoallv(sendbuf,sendcounts,sdispls,MPI_INT,recvbuf,recvcounts,rdispls,MPI_INT,MPI_COMM_WORLD);
