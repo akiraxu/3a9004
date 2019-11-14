@@ -242,14 +242,12 @@ int main(int argc,char* argv[]){
 	int s = ceil(float(n)/float(p));
 
 	int * rec = new int[n*s];
-	int * res = new int[n*s];
+	int * res = new int[(n+2*padding)*(s+2*padding)];
 
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
-	for(int i = 0; i < n*s; i++){
-		res[i] = rec[i];
-	}
-	addPadding(&res, n, s, padding);
+	addPadding(&rec, n, s, padding);
+	for(int i = 0; i < n*s; i++){res[i] = rec[i];}
 
 	int * uppad = new int[n];
 	int * downpad = new int[n];
