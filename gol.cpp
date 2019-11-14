@@ -270,6 +270,15 @@ int main(int argc,char* argv[]){
 			delete [] sendup;
 			delete [] senddown;
 		}else{
+			if(id==2){
+				for(int i = 0; i < s+2*padding; i++){
+					for(int j = 0; j < n+2*padding; j++){
+						cout << rec[(n+2*padding)*i+j];
+					}
+					cout << endl;
+				}
+				cout << endl;
+			}
 			runRound(&rec, &res, n+2*padding, s+2*padding);
 			int * temp;
 			temp = res;
@@ -280,15 +289,6 @@ int main(int argc,char* argv[]){
 			setBoundary(uppad, downpad, rec, n, s, padding);
 
 			k--;
-
-			if(id==2){
-				for(int i = 0; i < s+2*padding; i++){
-					for(int j = 0; j < n+2*padding; j++){
-						cout << rec[(n+2*padding)*i+j];
-					}
-					cout << endl;
-				}
-			}
 		}
 	}
 
