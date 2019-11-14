@@ -250,8 +250,30 @@ int main(int argc,char* argv[]){
 
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
+	int testid = 2;
+
+	if(testid == 2){
+		for(int i = 0; i < s; i++){
+			for(int j = 0; j < n; j++){
+				cout << arr2[n*i+j];
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+
 	addPadding(&rec, n, s, padding);
 	for(int i = 0; i < n*s; i++){res[i] = rec[i];}
+
+	if(testid == 2){
+		for(int i = 0; i < s+2*padding; i++){
+			for(int j = 0; j < n+2*padding; j++){
+				cout << arr2[(n+2*padding)*i+j];
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
 
 	int * uppad = new int[n];
 	int * downpad = new int[n];
@@ -293,6 +315,16 @@ int main(int argc,char* argv[]){
 
 
 	removePadding(&res, n+2*padding, s+2*padding, padding);
+
+	if(testid == 2){
+		for(int i = 0; i < s; i++){
+			for(int j = 0; j < n; j++){
+				cout << arr2[n*i+j];
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
