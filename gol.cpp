@@ -11,6 +11,12 @@ using namespace std;
 
 int padding = 3;
 
+void fillZero(int * arr, int size){
+	for(int i = 0; i < size; i++){
+		arr[i] = 0;
+	}
+}
+
 int getPos(int size_x, int x, int dx){
 	int rc = -1;
 	switch(dx){
@@ -58,6 +64,7 @@ void addPadding(int ** arr, int x, int y, int pad){
 	int nx = x+2*pad;
 	int ny = y+2*pad;
 	int * a = new int[nx*ny];
+	fillZero(a, nx*ny);
 	int ni = pad;
 	int nj = pad;
 	for(int i = 0; i < y; i++){
@@ -246,7 +253,7 @@ int main(int argc,char* argv[]){
 
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
-	addPadding(&rec, n, s, padding);
+	//addPadding(&rec, n, s, padding);
 	for(int i = 0; i < n*s; i++){res[i] = rec[i];}
 
 	int * uppad = new int[n];
@@ -288,7 +295,7 @@ int main(int argc,char* argv[]){
 */
 
 
-	removePadding(&res, n+2*padding, s+2*padding, padding);
+	//removePadding(&res, n+2*padding, s+2*padding, padding);
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
