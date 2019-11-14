@@ -1,5 +1,5 @@
-# include <cstdlib>
-# include "mpi.h"
+#include <cstdlib>
+#include "mpi.h"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -11,7 +11,7 @@ using namespace std;
 
 int padding = 3;
 
-int testp = 1;
+int testp = -1;
 
 void fillZero(int * arr, int size){
 	for(int i = 0; i < size; i++){
