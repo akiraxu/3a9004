@@ -100,6 +100,17 @@ void removePadding(int ** arr, int x, int y, int pad){
 	(*arr) = a;
 }
 
+void clearPadding(int ** arr, int x, int y, int pad){
+	int nx = x-2*pad;
+	int ny = y-2*pad;
+	for(int i = 0; i < y; i++){
+		for(int j = 0; j < x; j++){
+			if(i < pad || i >= x+pad || j < pad || j >= x+pad);
+			(*arr)[x*i+j] = 0;
+		}
+	}
+}
+
 void copyArr(int * orig, int * targ, int len){
 	for(int i = 0; i < len; i++){
 		targ[i] = orig[i];
@@ -134,6 +145,7 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 	for(int i = 0; i < 2*x; i++){
 		sendbuf[i] = recvbuf[i] = 0;
 	}
+	
 	bool up = false;
 	bool down = false;
 
