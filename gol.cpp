@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int padding = 1;
+int padding = 3;
 
 void fillZero(int * arr, int size){
 	for(int i = 0; i < size; i++){
@@ -285,6 +285,15 @@ int main(int argc,char* argv[]){
 			setBoundary(uppad, downpad, rec, n, s, padding);
 
 			k--;
+
+			if(id==2){
+				for(int i = 0; i < n; i++){
+					for(int j = 0; j < n; j++){
+						cout << arr2[n*i+j];
+					}
+					cout << endl;
+				}
+			}
 		}
 	}
 
