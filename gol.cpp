@@ -129,6 +129,7 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 	}
 
 	for(int i = 0; i < procs; i++){
+		sendcounts[i] = recvcounts[i] = sdispls[i] = rdispls[i] = 0;
 		if(i == my-1){
 			sendcounts[i] = x;
 			recvcounts[i] = x;
