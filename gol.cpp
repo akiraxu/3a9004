@@ -264,6 +264,16 @@ int main(int argc,char* argv[]){
 
 	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
+	if(id==testp){
+		for(int i = 0; i < s; i++){
+			for(int j = 0; j < n; j++){
+				cout << rec*i+j];
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+
 	addPadding(&rec, n, s, padding);
 	for(int i = 0; i < (n+2*padding)*(s+2*padding); i++){res[i] = rec[i];}
 
