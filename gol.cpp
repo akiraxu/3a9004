@@ -257,10 +257,10 @@ int main(int argc,char* argv[]){
 			int * senddown = new int [n*p];
 			if(id==0){
 				for(int i = 1; i < p; i++){
-					copyArr(infile + n*(i*s-1), senddown + n*(i), n);
+					copyArr(infile + n*(i*s-1), sendup + n*(i), n);
 				}
 				for(int i = 1; i < p; i++){
-					copyArr(infile + n*(i*s), sendup + n*(i-1), n);
+					copyArr(infile + n*(i*s), senddown + n*(i-1), n);
 				}
 			}
 			MPI_Scatter(sendup, n, MPI_INT, uppad, n, MPI_INT, 0, MPI_COMM_WORLD);
@@ -270,7 +270,7 @@ int main(int argc,char* argv[]){
 				for(int i = 0; i < n; i++){
 					cout << uppad[i];
 				}
-				cout << endl;
+				cout << endl << endl;
 			}
 
 			setBoundary(uppad, downpad, rec, n, s, padding);
