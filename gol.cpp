@@ -125,6 +125,10 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 	int loc = 0;
 
 	for(int i = 0; i < procs; i++){
+		cout << sendcounts[i] << "| ";
+	}
+
+	for(int i = 0; i < procs; i++){
 		if(i == my-1){
 			sendcounts[i] = x;
 			recvcounts[i] = x;
@@ -141,7 +145,7 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 	}
 
 	for(int i = 0; i < procs; i++){
-		cout << sendcounts[i];
+		cout << sendcounts[i] << " ";
 	}
 	cout << endl;
 
