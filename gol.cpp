@@ -124,9 +124,7 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 
 	int loc = 0;
 
-	for(int i = 0; i < procs; i++){
-		cout << sendcounts[i] << "| ";
-	}
+	//for(int i = 0; i < procs; i++){cout << sendcounts[i] << "| ";}
 
 	for(int i = 0; i < procs; i++){
 		sendcounts[i] = recvcounts[i] = sdispls[i] = rdispls[i] = 0;
@@ -276,7 +274,7 @@ int main(int argc,char* argv[]){
 			delete [] senddown;
 		}else{
 
-			runRound(&rec, &res, n, s);
+			runRound(&rec, &res, n+2*padding, s+2*padding);
 			int * temp;
 			temp = res;
 			res = rec;
