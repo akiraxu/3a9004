@@ -73,7 +73,7 @@ void addPadding(int ** arr, int x, int y, int pad){
 		for(int j = 0; j < x; j++){
 			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
-			k++
+			k++;
 		}
 		ni++;
 		nj = pad;
