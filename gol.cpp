@@ -173,7 +173,7 @@ int main(int argc,char* argv[]){
 	double wtime;
 
 	if(argc != 4){ 
-		exit(0);
+		//exit(0);
 	}
 	cout << argc << endl;
 
@@ -192,6 +192,7 @@ int main(int argc,char* argv[]){
 		string fn(argv[1]);
 		n = stoi(argv[2]);
 		k = stoi(argv[3]);
+		testp = stoi(argv[4]);
 
 		cout << fn << n << k << endl;
 		
