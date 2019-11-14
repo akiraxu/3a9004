@@ -67,6 +67,7 @@ void addPadding(int ** arr, int x, int y, int pad){
 	fillZero(a, nx*ny);
 	int ni = pad;
 	int nj = pad;
+	int k = 0;
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
 			a[ni*nx+nj] = (*arr)[x*i+j];
@@ -74,7 +75,9 @@ void addPadding(int ** arr, int x, int y, int pad){
 		}
 		ni++;
 		nj = pad;
+		k++;
 	}
+	cout << "|" << k << "|";
 	delete [] (*arr);
 	(*arr) = a;
 }
