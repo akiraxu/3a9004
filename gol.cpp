@@ -11,6 +11,8 @@ using namespace std;
 
 int padding = 3;
 
+int testp = 1;
+
 void fillZero(int * arr, int size){
 	for(int i = 0; i < size; i++){
 		arr[i] = 0;
@@ -128,6 +130,8 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 
 	int loc = 0;
 
+	//for(int i = 0; i < procs; i++){cout << sendcounts[i] << "| ";}
+
 	for(int i = 0; i < procs; i++){
 		sendcounts[i] = recvcounts[i] = sdispls[i] = rdispls[i] = 0;
 		if(i == my-1){
@@ -153,6 +157,8 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 }
 
 void runRound(int ** curr, int ** next, int x, int y){
+	//free(*next);
+	//(*next) = new int[x*y];
 	for(int i = 0; i < x*y; i++){
 		(*next)[i] = calcNextRound(*curr, i, x, y);
 	}
@@ -212,6 +218,22 @@ int main(int argc,char* argv[]){
 			arr2[i] = arr[i];
 			infile[i] = arr[i];
 		}
+		for(int t = 0; t < k; t++){
+			delete [] arr;
+			arr = arr2;
+			arr2 = new int[n*n];
+			for(int i = 0; i < n*n; i++){
+				arr2[i] = calcNextRound(arr, i, 100, 100);
+			}
+		}
+/*
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				cout << arr2[n*i+j];
+			}
+			cout << endl;
+		}
+*/
 	}
 	MPI_Bcast(&n,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(&k,1,MPI_INT,0,MPI_COMM_WORLD);
@@ -246,18 +268,50 @@ int main(int argc,char* argv[]){
 			MPI_Scatter(sendup, n, MPI_INT, uppad, n, MPI_INT, 0, MPI_COMM_WORLD);
 			MPI_Scatter(senddown, n, MPI_INT, downpad, n, MPI_INT, 0, MPI_COMM_WORLD);
 
+			if(id==testp){
+				for(int i = 0; i < n; i++){
+					cout << uppad[i];
+				}
+				cout << endl << endl;
+			}
+
 			setBoundary(uppad, downpad, rec, n, s, padding);
 			inityet = true;
 			delete [] sendup;
 			delete [] senddown;
 		}else{
+			if(id==testp){
+				for(int i = 0; i < s+2*padding; i++){
+					for(int j = 0; j < n+2*padding; j++){
+						cout << rec[(n+2*padding)*i+j];
+					}
+					cout << endl;
+				}
+				cout << endl;
+			}
 			runRound(&rec, &res, n+2*padding, s+2*padding);
 			int * temp;
 			temp = res;
 			res = rec;
 			rec = temp;
 			extractBoundary(uppad, downpad, rec, n, s, padding);
+
+			if(id==testp){
+				for(int i = 0; i < n; i++){
+					cout << uppad[i];
+				}
+				cout << endl << endl;
+			}
+
 			makeAllToAll(uppad, downpad, n, s, p, id);
+
+			if(id==testp){
+				for(int i = 0; i < n; i++){
+					cout << uppad[i];
+				}
+				cout << endl << endl;
+			}
+
 			setBoundary(uppad, downpad, rec, n, s, padding);
 
 			k--;
