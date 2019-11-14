@@ -267,6 +267,16 @@ int main(int argc,char* argv[]){
 	addPadding(&rec, n, s, padding);
 	for(int i = 0; i < (n+2*padding)*(s+2*padding); i++){res[i] = rec[i];}
 
+	if(id==testp){
+		for(int i = 0; i < s+2*padding; i++){
+			for(int j = 0; j < n+2*padding; j++){
+				cout << res[(n+2*padding)*i+j];
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+
 	int * uppad = new int[n];
 	int * downpad = new int[n];
 
