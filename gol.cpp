@@ -335,7 +335,7 @@ int main(int argc,char* argv[]){
 
 			makeAllToAll(uppad, downpad, n, s, p, id);
 
-			removePadding(&rec, n+2*padding, s+2*padding, padding);
+			clearPadding(&rec, n+2*padding, s+2*padding, padding);
 
 			if(id==testp){
 				cout << "get upper:\n";
