@@ -297,8 +297,14 @@ int main(int argc,char* argv[]){
 			extractBoundary(uppad, downpad, rec, n, s, padding);
 
 			if(id==testp){
+				cout << "send upper:\n";
 				for(int i = 0; i < n; i++){
 					cout << uppad[i];
+				}
+				cout << endl << endl;
+				cout << "send lower:\n";
+				for(int i = 0; i < n; i++){
+					cout << lower[i];
 				}
 				cout << endl << endl;
 			}
@@ -306,8 +312,14 @@ int main(int argc,char* argv[]){
 			makeAllToAll(uppad, downpad, n, s, p, id);
 
 			if(id==testp){
+				cout << "get upper:\n";
 				for(int i = 0; i < n; i++){
 					cout << uppad[i];
+				}
+				cout << endl << endl;
+				cout << "get lower:\n";
+				for(int i = 0; i < n; i++){
+					cout << lower[i];
 				}
 				cout << endl << endl;
 			}
