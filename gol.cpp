@@ -260,13 +260,17 @@ int main(int argc,char* argv[]){
 	int s = ceil(float(n)/float(p));
 
 	int * inf2 = new int[n*s*p];
-	for(int i = 0; i < n*s*p; n++){inf2[i] = 0;}
-	copyArr(infile, inf2, n*n);
+	if(id = 0){
+		for(int i = 0; i < n*s*p; n++){inf2[i] = 0;}
+		copyArr(infile, inf2, n*n);
+	}
 
 	int * rec = new int[n*s];
 	int * res = new int[(n+2*padding)*(s+2*padding)];
 
-	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
+	MPI_Scatter(inf2, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
+
+	delete [] inf2;
 
 	if(id==testp){
 		for(int i = 0; i < s; i++){
