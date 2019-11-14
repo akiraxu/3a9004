@@ -252,7 +252,7 @@ int main(int argc,char* argv[]){
 
 	int testid = 2;
 
-	if(testid == 2){
+	if(testid == id){
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
 				cout << rec[n*i+j];
@@ -265,7 +265,7 @@ int main(int argc,char* argv[]){
 	addPadding(&rec, n, s, padding);
 	for(int i = 0; i < n*s; i++){res[i] = rec[i];}
 
-	if(testid == 2){
+	if(testid == id){
 		for(int i = 0; i < s+2*padding; i++){
 			for(int j = 0; j < n+2*padding; j++){
 				cout << res[(n+2*padding)*i+j];
@@ -316,7 +316,7 @@ int main(int argc,char* argv[]){
 
 	removePadding(&res, n+2*padding, s+2*padding, padding);
 
-	if(testid == 2){
+	if(testid == id){
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
 				cout << res[n*i+j];
