@@ -115,12 +115,12 @@ void setBoundary(int * upper, int * lower, int * arr, int x, int y, int pad){
 }
 
 void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
-	int * sendbuf = new int[2*x];
-	int * sendcounts = new int[procs];
-	int * sdispls = new int[procs];
-	int * recvbuf = new int[2*x];
-	int * recvcounts = new int[procs];
-	int * rdispls = new int[procs];
+	int sendbuf[2*x];
+	int sendcounts[procs];
+	int sdispls[procs];
+	int recvbuf[2*x];
+	int recvcounts[procs];
+	int rdispls[procs];
 
 	int loc = 0;
 
