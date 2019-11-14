@@ -134,6 +134,8 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 	for(int i = 0; i < 2*x; i++){
 		sendbuf[i] = recvbuf[i] = 0;
 	}
+	bool up = false;
+	bool down = false;
 
 	for(int i = 0; i < procs; i++){
 		sendcounts[i] = recvcounts[i] = sdispls[i] = rdispls[i] = 0;
@@ -143,20 +145,22 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 			sdispls[i] = 0;
 			rdispls[i] = 0;
 			loc += x;
+			up = true;
 		}else if(i == my+1){
 			sendcounts[i] = x;
 			recvcounts[i] = x;
 			sdispls[i] = loc;
 			rdispls[i] = loc;
+			down = true;
 		}
 		
 	}
 
-	copyArr(upper, sendbuf, x);
-	copyArr(lower, sendbuf+x, x);
+	if(up)copyArr(upper, sendbuf, x);
+	if(down)copyArr(lower, sendbuf+(up?x:0), x);
 	MPI_Alltoallv(sendbuf,sendcounts,sdispls,MPI_INT,recvbuf,recvcounts,rdispls,MPI_INT,MPI_COMM_WORLD);
-	copyArr(recvbuf, lower, x);
-	copyArr(recvbuf+x, upper, x);
+	if(up)copyArr(recvbuf, upper, x);
+	if(down)copyArr(recvbuf+(up?x:0), lower, x);
 }
 
 void runRound(int ** curr, int ** next, int x, int y){
