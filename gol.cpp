@@ -293,7 +293,23 @@ int main(int argc,char* argv[]){
 			res = rec;
 			rec = temp;
 			extractBoundary(uppad, downpad, rec, n, s, padding);
+
+			if(id==2){
+				for(int i = 0; i < n; i++){
+					cout << uppad[i];
+				}
+				cout << endl << endl;
+			}
+			
 			makeAllToAll(uppad, downpad, n, s, p, id);
+
+			if(id==2){
+				for(int i = 0; i < n; i++){
+					cout << uppad[i];
+				}
+				cout << endl << endl;
+			}
+
 			setBoundary(uppad, downpad, rec, n, s, padding);
 
 			k--;
