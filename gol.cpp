@@ -289,7 +289,7 @@ int main(int argc,char* argv[]){
 			if(id==2){
 				for(int i = 0; i < n; i++){
 					for(int j = 0; j < n; j++){
-						cout << arr2[n*i+j];
+						cout << rec[n*i+j];
 					}
 					cout << endl;
 				}
