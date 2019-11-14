@@ -262,6 +262,11 @@ int main(int argc,char* argv[]){
 		}
 */
 	}
+
+	if(id==0){
+		wtime = MPI::Wtime();
+	}
+
 	MPI_Bcast(&n,1,MPI_INT,0,MPI_COMM_WORLD);
 	MPI_Bcast(&k,1,MPI_INT,0,MPI_COMM_WORLD);
 
@@ -397,13 +402,15 @@ int main(int argc,char* argv[]){
 	//int MPI_Alltoallv(sendbuf,sendcounts,sdispls,MPI_INT,recvbuf,recvcounts,rdispls,MPI_INT,MPI_COMM_WORLD)
 
 	if(id==0){
-		cout << "final" << endl;
+		wtime = MPI::Wtime() - wtime;
+		cout << "result:" << endl;
 		for(int i = 0; i < s * p; i++){
 			for(int j = 0; j < n; j++){
 				cout << outfile[n*i+j];
 			}
 			cout << endl;
 		}
+		cout << "  Elapsed wall clock time = " << wtime << " seconds.\n";
 	}
 
 	MPI::Finalize();
