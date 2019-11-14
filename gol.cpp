@@ -103,8 +103,9 @@ void removePadding(int ** arr, int x, int y, int pad){
 void clearPadding(int ** arr, int x, int y, int pad){
 	for(int i = 0; i < y; i++){
 		for(int j = 0; j < x; j++){
-			if(i < pad || i >= x-pad || j < pad || j >= x-pad);
-			(*arr)[x*i+j] = 0;
+			if(i < pad || i >= x-pad || j < pad || j >= x-pad){
+				(*arr)[x*i+j] = 0;
+			}
 		}
 	}
 }
