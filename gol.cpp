@@ -235,6 +235,15 @@ int main(int argc,char* argv[]){
 			arr2[i] = arr[i];
 			infile[i] = arr[i];
 		}
+
+		for(int i = 0; i < haserh*p; i++){
+			for(int j = 0; j < n; j++){
+				cout << infile[n*i+j];
+			}
+			cout << endl;
+		}
+		cout << endl;
+
 		for(int t = 0; t < k; t++){
 			delete [] arr;
 			arr = arr2;
@@ -259,18 +268,10 @@ int main(int argc,char* argv[]){
 
 	int s = ceil(float(n)/float(p));
 
-	int * inf2 = new int[n*s*p];
-	if(id == 0){
-		for(int i = 0; i < n*s*p; n++){inf2[i] = 0;}
-		copyArr(infile, inf2, n*n);
-	}
-
 	int * rec = new int[n*s];
 	int * res = new int[(n+2*padding)*(s+2*padding)];
 
-	MPI_Scatter(inf2, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
-
-	delete [] inf2;
+	MPI_Scatter(infile, n*s, MPI_INT, rec, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
 	if(id==testp){
 		for(int i = 0; i < s; i++){
