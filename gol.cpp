@@ -402,6 +402,7 @@ int main(int argc,char* argv[]){
 
 	if(id==0){
 		wtime = MPI::Wtime() - wtime;
+		string fn(argv[1]);
 		ofstream out("" + fn + ".out");
 		//cout << "result:" << endl;
 		for(int i = 0; i < s * p; i++){
