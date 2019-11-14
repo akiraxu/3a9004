@@ -68,7 +68,7 @@ void addPadding(int ** arr, int x, int y, int pad){
 		ni++;
 		nj = pad;
 	}
-	free (*arr);
+	delete [] (*arr);
 	(*arr) = a;
 }
 
@@ -90,7 +90,7 @@ void removePadding(int ** arr, int x, int y, int pad){
 	for(int i = 0; i < nx*ny; i++){
 		k++;
 	}
-	free (*arr);
+	delete [] (*arr);
 	(*arr) = a;
 }
 
@@ -115,12 +115,12 @@ void setBoundary(int * upper, int * lower, int * arr, int x, int y, int pad){
 }
 
 void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
-	int sendbuf[2*x];
-	int sendcounts[procs];
-	int sdispls[procs];
-	int recvbuf[2*x];
-	int recvcounts[procs];
-	int rdispls[procs];
+	int * sendbuf = new int[2*x];
+	int * sendcounts = new int[procs];
+	int * sdispls = new int[procs];
+	int * recvbuf = new int[2*x];
+	int * recvcounts = new int[procs];
+	int * rdispls = new int[procs];
 
 	int loc = 0;
 
@@ -219,7 +219,7 @@ int main(int argc,char* argv[]){
 			infile[i] = arr[i];
 		}
 		for(int t = 0; t < k; t++){
-			free(arr);
+			delete [] arr;
 			arr = arr2;
 			arr2 = new int[n*n];
 			for(int i = 0; i < n*n; i++){
@@ -271,8 +271,8 @@ int main(int argc,char* argv[]){
 			MPI_Scatter(senddown, n, MPI_INT, downpad, n, MPI_INT, 0, MPI_COMM_WORLD);
 			setBoundary(uppad, downpad, rec, n, s, padding);
 			inityet = true;
-			free(sendup);
-			free(senddown);
+			delete [] sendup;
+			delete [] senddown;
 		}else{
 
 			runRound(&rec, &res, n, s);
