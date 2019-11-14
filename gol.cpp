@@ -61,6 +61,7 @@ int calcNextRound(int * arr, int pos, int size_x, int size_y){
 }
 
 void addPadding(int ** arr, int x, int y, int pad){
+	cout << "add padding" << endl;
 	int nx = x+2*pad;
 	int ny = y+2*pad;
 	int * a = new int[nx*ny];
@@ -72,10 +73,10 @@ void addPadding(int ** arr, int x, int y, int pad){
 		for(int j = 0; j < x; j++){
 			a[ni*nx+nj] = (*arr)[x*i+j];
 			nj++;
+			k++
 		}
 		ni++;
 		nj = pad;
-		k++;
 	}
 	cout << "|" << k << "|";
 	delete [] (*arr);
