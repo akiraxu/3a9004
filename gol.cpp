@@ -9,9 +9,9 @@
 
 using namespace std;
 
-int padding = 3;
+int padding = 0;
 
-int testp = 0;
+int testp = -1;
 
 void fillZero(int * arr, int size){
 	for(int i = 0; i < size; i++){
