@@ -264,6 +264,10 @@ int main(int argc,char* argv[]){
 		if(!inityet){
 			int * sendup = new int [n*p];
 			int * senddown = new int [n*p];
+
+			for(int i = 0; i < n*p; i++){
+				sendup[i] = senddown[i] = 0;
+			}
 			if(id==0){
 				for(int i = 1; i < p; i++){
 					copyArr(infile + n*(i*s-1), sendup + n*(i), n);
