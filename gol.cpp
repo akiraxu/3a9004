@@ -102,15 +102,15 @@ void copyArr(int * orig, int * targ, int len){
 
 void extractBoundary(int * upper, int * lower, int * arr, int x, int y, int pad){
 	for(int i = 0; i < x; i++){
-		upper[x] = arr[x*(pad-1)+pad];
-		lower[x] = arr[x*pad+pad];
+		upper[x] = arr[x*(pad-1)+pad+i];
+		lower[x] = arr[x*pad+pad+i];
 	}
 }
 
 void setBoundary(int * upper, int * lower, int * arr, int x, int y, int pad){
 	for(int i = 0; i < x; i++){
-		arr[x*(pad-1)+pad] = upper[x];
-		arr[x*pad+pad] = lower[x];
+		arr[x*(pad-1)+pad+i] = upper[x];
+		arr[x*pad+pad+i] = lower[x];
 	}
 }
 
@@ -252,7 +252,7 @@ int main(int argc,char* argv[]){
 	int * uppad = new int[n];
 	int * downpad = new int[n];
 
-	while(k > 0){
+	while(k >= 0){
 		if(!inityet){
 			int * sendup = new int [n*p];
 			int * senddown = new int [n*p];
