@@ -267,7 +267,7 @@ int main(int argc,char* argv[]){
 	if(id==testp){
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << rec*i+j];
+				cout << rec[n*i+j];
 			}
 			cout << endl;
 		}
