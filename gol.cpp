@@ -304,7 +304,7 @@ int main(int argc,char* argv[]){
 				cout << endl << endl;
 				cout << "send lower:\n";
 				for(int i = 0; i < n; i++){
-					cout << lower[i];
+					cout << downpad[i];
 				}
 				cout << endl << endl;
 			}
@@ -319,7 +319,7 @@ int main(int argc,char* argv[]){
 				cout << endl << endl;
 				cout << "get lower:\n";
 				for(int i = 0; i < n; i++){
-					cout << lower[i];
+					cout << downpad[i];
 				}
 				cout << endl << endl;
 			}
