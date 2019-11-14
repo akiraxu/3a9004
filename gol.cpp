@@ -106,8 +106,8 @@ void copyArr(int * orig, int * targ, int len){
 
 void extractBoundary(int * upper, int * lower, int * arr, int x, int y, int pad){
 	for(int i = 0; i < x; i++){
-		upper[i] = arr[(x+2*pad)*(pad-1)+pad+i];
-		lower[i] = arr[(x+2*pad)*(pad+y)+pad+i];
+		upper[i] = arr[(x+2*pad)*(pad)+pad+i];
+		lower[i] = arr[(x+2*pad)*(pad+y-1)+pad+i];
 	}
 }
 
@@ -300,7 +300,7 @@ int main(int argc,char* argv[]){
 				}
 				cout << endl << endl;
 			}
-			
+
 			makeAllToAll(uppad, downpad, n, s, p, id);
 
 			if(id==2){
