@@ -158,7 +158,7 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 
 	if(up)copyArr(upper, sendbuf, x);
 	if(down)copyArr(lower, sendbuf+(up?x:0), x);
-	MPI_Alltoallv(sendbuf,sendcounts,sdispls,MPI_INT,recvbuf,recvcounts,rdispls,MPI_INT,MPI_COMM_WORLD);
+	MPI_Alltoallv(&sendbuf,&sendcounts,&sdispls,MPI_INT,&recvbuf,&recvcounts,&rdispls,MPI_INT,MPI_COMM_WORLD);
 	if(up)copyArr(recvbuf, upper, x);
 	if(down)copyArr(recvbuf+(up?x:0), lower, x);
 }
