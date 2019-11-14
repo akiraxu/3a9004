@@ -152,8 +152,8 @@ void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
 	copyArr(upper, sendbuf, x);
 	copyArr(lower, sendbuf+x, x);
 	MPI_Alltoallv(sendbuf,sendcounts,sdispls,MPI_INT,recvbuf,recvcounts,rdispls,MPI_INT,MPI_COMM_WORLD);
-	copyArr(recvbuf, lower, x);
-	copyArr(recvbuf+x, upper, x);
+	copyArr(recvbuf, upper, x);
+	copyArr(recvbuf+x, lower, x);
 }
 
 void runRound(int ** curr, int ** next, int x, int y){
