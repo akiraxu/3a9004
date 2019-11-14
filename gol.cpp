@@ -9,6 +9,8 @@
 
 using namespace std;
 
+int padding = 3;
+
 int getPos(int size_x, int x, int dx){
 	int rc = -1;
 	switch(dx){
@@ -43,11 +45,11 @@ int getPos(int size_x, int x, int dx){
 	return rc;
 }
 
-int calcNextRound(int * arr, int pos, int size_x){
+int calcNextRound(int * arr, int pos, int size_x, int size_y){
 	int near = 0;
 	for(int i = 0; i < 8; i++){
 		int adj = getPos(size_x, pos, i);
-		near += adj < 0 ? 0 : arr[adj];
+		near += (adj < 0 || adj >= size_x*size_y) ? 0 : arr[adj];
 	}
 	return arr[pos]==0 ? near==3 : near==2 || near==3;
 }
@@ -95,6 +97,60 @@ void removePadding(int ** arr, int x, int y, int pad){
 void copyArr(int * orig, int * targ, int len){
 	for(int i = 0; i < len; i++){
 		targ[i] = orig[i];
+	}
+}
+
+void extractBoundary(int * upper, int * lower, int * arr, int x, int y, int pad){
+	for(int i = 0; i < x; i++){
+		upper[x] = arr[x*(pad-1)+pad];
+		lower[x] = arr[x*pad+pad];
+	}
+}
+
+void setBoundary(int * upper, int * lower, int * arr, int x, int y, int pad){
+	for(int i = 0; i < x; i++){
+		arr[x*(pad-1)+pad] = upper[x];
+		arr[x*pad+pad] = lower[x];
+	}
+}
+
+void makeAllToAll(int * upper, int * lower, int x, int y, int procs, int my){
+	int * sendbuf = new int[2*x];
+	int * sendcounts = new int[procs];
+	int * sdispls = new int[procs];
+	int * recvbuf = new int[2*x];
+	int * recvcounts = new int[procs];
+	int * rdispls = new int[procs];
+
+	int loc = 0;
+
+	for(int i = 0; i < procs; i++){
+		if(i == my-1){
+			sendcounts[i] = x;
+			recvcounts[i] = x;
+			sdispls[i] = 0;
+			rdispls[i] = 0;
+			loc += x;
+		}else if(i == my+1){
+			sendcounts[i] = x;
+			recvcounts[i] = x;
+			sdispls[i] = loc;
+			rdispls[i] = loc;
+		}
+		
+	}
+	copyArr(upper, sendbuf, x);
+	copyArr(lower, sendbuf+x, x);
+	MPI_Alltoallv(sendbuf,sendcounts,sdispls,MPI_INT,recvbuf,recvcounts,rdispls,MPI_INT,MPI_COMM_WORLD);
+	copyArr(recvbuf, upper, x);
+	copyArr(recvbuf+x, lower, x);
+}
+
+void runRound(int ** curr, int ** next, int x, int y){
+	//free(*next);
+	//(*next) = new int[x*y];
+	for(int i = 0; i < n*n; i++){
+		arr[i] = calcNextRound(*curr, i, x, y);
 	}
 }
 
@@ -184,30 +240,52 @@ int main(int argc,char* argv[]){
 	for(int i = 0; i < n*s; i++){
 		res[i] = rec[i];
 	}
-	addPadding(&res, n, s, 10);
+	addPadding(&res, n, s, padding);
 
 	int * uppad = new int[n];
 	int * downpad = new int[n];
 
-	if(inityet){
-		int * sendup = new int [n*p];
-		int * senddown = new int [n*p];
-		for(int i = 1; i < p; i++){
-			copyArr(infile + n*(i*s-1), sendup + n*(i-1), n);
+	while(k > 0){
+		if(!inityet){
+			int * sendup = new int [n*p];
+			int * senddown = new int [n*p];
+			if(id==0){
+				for(int i = 1; i < p; i++){
+					copyArr(infile + n*(i*s-1), sendup + n*(i), n);
+				}
+				for(int i = 1; i < p; i++){
+					copyArr(infile + n*(i*s), senddown + n*(i-1), n);
+				}
+			}
+			MPI_Scatter(sendup, n, MPI_INT, uppad, n, MPI_INT, 0, MPI_COMM_WORLD);
+			MPI_Scatter(senddown, n, MPI_INT, downpad, n, MPI_INT, 0, MPI_COMM_WORLD);
+			setBoundary(uppad, downpad, rec, n, s, padding);
+			inityet = true;
+			free(sendup);
+			free(senddown);
+		}else{
+
+			runRound(&rec, &res, n, s);
+			int * temp;
+			temp = res;
+			res = rec;
+			rec = temp;
+			extractBoundary(uppad, downpad, rec, n, s, padding);
+			makeAllToAll(uppad, downpad, n, s, p, id);
+			setBoundary(uppad, downpad, rec, n, s, padding);
+
+			k--;
 		}
-
-
-		inityet = false;
 	}
 
 
 
 
-	removePadding(&res, n+20, s+20, 10);
+	removePadding(&res, n+2*padding, s+2*padding, padding);
 
 	MPI_Gather(res, n*s, MPI_INT, outfile, n*s, MPI_INT, 0, MPI_COMM_WORLD);
 
-	//int MPI_Alltoallv(const void *sendbuf, const int *sendcounts, const int *sdispls, MPI_Datatype sendtype, void *recvbuf, const int *recvcounts, const int *rdispls, MPI_Datatype recvtype, MPI_Comm comm)
+	//int MPI_Alltoallv(sendbuf,sendcounts,sdispls,MPI_INT,recvbuf,recvcounts,rdispls,MPI_INT,MPI_COMM_WORLD)
 
 	if(id==0){
 		cout << "final" << endl;
