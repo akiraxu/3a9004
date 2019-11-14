@@ -259,6 +259,10 @@ int main(int argc,char* argv[]){
 
 	int s = ceil(float(n)/float(p));
 
+	int * inf2 = new int[n*s*p];
+	for(int i = 0; i < n*s*p; n++){inf2[i] = 0;}
+	copyArr(infile, inf2, n*n);
+
 	int * rec = new int[n*s];
 	int * res = new int[(n+2*padding)*(s+2*padding)];
 
