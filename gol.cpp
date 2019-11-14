@@ -11,7 +11,7 @@ using namespace std;
 
 int padding = 3;
 
-//int testp = 0;
+int testp = 0;
 
 void fillZero(int * arr, int size){
 	for(int i = 0; i < size; i++){
@@ -173,7 +173,7 @@ int main(int argc,char* argv[]){
 	double wtime;
 
 	if(argc != 4){ 
-		//exit(0);
+		exit(0);
 	}
 	cout << argc << endl;
 
@@ -183,7 +183,7 @@ int main(int argc,char* argv[]){
 
 	
 
-	int n, k, testp;
+	int n, k;
 
 	int *infile;
 	int *outfile;
@@ -192,9 +192,8 @@ int main(int argc,char* argv[]){
 		string fn(argv[1]);
 		n = stoi(argv[2]);
 		k = stoi(argv[3]);
-		testp = stoi(argv[4]);
 
-		cout << fn << n << k << testp << endl;
+		cout << fn << n << k << endl;
 		
 		int *arr = new int[n*n];
 		int *arr2 = new int[n*n];
