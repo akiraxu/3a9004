@@ -11,7 +11,7 @@ using namespace std;
 
 int padding = 3;
 
-int testp = 0;
+//int testp = 0;
 
 void fillZero(int * arr, int size){
 	for(int i = 0; i < size; i++){
@@ -183,7 +183,7 @@ int main(int argc,char* argv[]){
 
 	
 
-	int n, k;
+	int n, k, testp;
 
 	int *infile;
 	int *outfile;
