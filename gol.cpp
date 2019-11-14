@@ -265,6 +265,14 @@ int main(int argc,char* argv[]){
 			}
 			MPI_Scatter(sendup, n, MPI_INT, uppad, n, MPI_INT, 0, MPI_COMM_WORLD);
 			MPI_Scatter(senddown, n, MPI_INT, downpad, n, MPI_INT, 0, MPI_COMM_WORLD);
+
+			if(id==2){
+				for(int i = 0; i < n; i++){
+					cout << uppad[i];
+				}
+				cout << endl;
+			}
+
 			setBoundary(uppad, downpad, rec, n, s, padding);
 			inityet = true;
 			delete [] sendup;
