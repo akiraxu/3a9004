@@ -256,6 +256,10 @@ int main(int argc,char* argv[]){
 	int * uppad = new int[n];
 	int * downpad = new int[n];
 
+	for(int i = 0; i < n; i++){
+		uppad[i] = downpad[i] = 0;
+	}
+
 	while(k >= 0){
 		if(!inityet){
 			int * sendup = new int [n*p];
