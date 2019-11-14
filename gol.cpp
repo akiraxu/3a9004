@@ -255,7 +255,7 @@ int main(int argc,char* argv[]){
 	if(testid == 2){
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << arr2[n*i+j];
+				cout << rec[n*i+j];
 			}
 			cout << endl;
 		}
@@ -268,7 +268,7 @@ int main(int argc,char* argv[]){
 	if(testid == 2){
 		for(int i = 0; i < s+2*padding; i++){
 			for(int j = 0; j < n+2*padding; j++){
-				cout << arr2[(n+2*padding)*i+j];
+				cout << res[(n+2*padding)*i+j];
 			}
 			cout << endl;
 		}
@@ -319,7 +319,7 @@ int main(int argc,char* argv[]){
 	if(testid == 2){
 		for(int i = 0; i < s; i++){
 			for(int j = 0; j < n; j++){
-				cout << arr2[n*i+j];
+				cout << res[n*i+j];
 			}
 			cout << endl;
 		}
