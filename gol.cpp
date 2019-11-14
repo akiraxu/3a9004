@@ -194,7 +194,7 @@ int main(int argc,char* argv[]){
 		k = stoi(argv[3]);
 		testp = stoi(argv[4]);
 
-		cout << fn << n << k << endl;
+		cout << fn << n << k << testp << endl;
 		
 		int *arr = new int[n*n];
 		int *arr2 = new int[n*n];
